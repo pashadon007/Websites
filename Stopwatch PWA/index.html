@@ -545,16 +545,15 @@
                 if (!existingRow) {
                     existingRow = document.createElement('div');
                     existingRow.id = `row-${timer.id}`;
-                    existingRow.className = `stopwatch-row border border-slate-200 ${theme.border} rounded-2xl p-4 sm:p-5 flex flex-col transition-all duration-300 relative overflow-hidden shadow-sm ${timer.isRunning ? 'running-glow' : ''}`;
                     
                     existingRow.innerHTML = `
                         <!-- Stopwatch Main Control Row -->
-                        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 z-10 relative">
+                        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 z-10 relative bg-slate-100/80 dark:bg-slate-800/70 rounded-xl p-3 sm:p-4">
                             <!-- Left: Label Metadata and Edit Field -->
                             <div class="flex items-center space-x-3 flex-1 min-w-[250px]">
                                 <span class="w-3.5 h-3.5 rounded-full ${timer.isRunning ? 'bg-emerald-450 dark:bg-emerald-400 animate-pulse' : 'bg-slate-400 dark:bg-slate-600'} flex-shrink-0" id="status-dot-${timer.id}"></span>
                                 <div class="flex-grow">
-                                    <input type="text" value="${timer.name}" 
+                                <input type="text" value="${timer.name}" 
                                            onchange="renameTimer('${timer.id}', this.value)"
                                            onkeydown="if(event.key === 'Enter') this.blur();"
                                            class="bg-transparent text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-0 rounded w-full cursor-text hover:bg-slate-200/50 dark:hover:bg-slate-800/30 transition-all"
@@ -643,6 +642,8 @@
                     listContainer.appendChild(existingRow);
                 }
 
+                existingRow.className = 'stopwatch-row';
+
                 const statusDot = document.getElementById(`status-dot-${timer.id}`);
                 const toggleBtn = document.getElementById(`btn-toggle-${timer.id}`);
                 const toggleIcon = document.getElementById(`icon-toggle-${timer.id}`);
@@ -664,12 +665,12 @@
                 }
 
                 if (timer.isRunning) {
-                    existingRow.className = `stopwatch-row ${theme.bgActive} border border-slate-200 ${theme.borderActive} rounded-2xl p-4 sm:p-5 flex flex-col transition-all duration-300 relative overflow-hidden running-glow`;
+                    existingRow.className = `stopwatch-row flex flex-col transition-all duration-300 relative running-glow`;
                     statusDot.className = `w-3.5 h-3.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse flex-shrink-0`;
                     toggleBtn.className = `w-10 h-10 rounded-xl flex items-center justify-center transition-all bg-amber-500/10 dark:bg-amber-500/15 hover:bg-amber-500/20 dark:hover:bg-amber-500/25 text-amber-600 dark:text-amber-400`;
                     toggleIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
                 } else {
-                    existingRow.className = `stopwatch-row ${theme.bg} border border-slate-200 ${theme.border} rounded-2xl p-4 sm:p-5 flex flex-col transition-all duration-300 relative overflow-hidden`;
+                    existingRow.className = `stopwatch-row flex flex-col transition-all duration-300 relative`;
                     statusDot.className = `w-3.5 h-3.5 rounded-full bg-slate-400 dark:bg-slate-600 flex-shrink-0`;
                     toggleBtn.className = `w-10 h-10 rounded-xl flex items-center justify-center transition-all bg-emerald-500/10 dark:bg-emerald-500/15 hover:bg-emerald-500/20 dark:hover:bg-emerald-500/25 text-emerald-600 dark:text-emerald-400`;
                     toggleIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`;
